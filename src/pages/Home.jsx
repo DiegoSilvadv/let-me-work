@@ -30,7 +30,7 @@ export function Home() {
                             displayName: displayName,
                             photoURL: photoURL,
                             phoneNumber: phoneNumber,
-                            metier: '',
+                            occupation: '',
                             dayPrice: 0,
                             city: '',
                             description: '',

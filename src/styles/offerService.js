@@ -39,13 +39,47 @@ export const Container = styled.div`
         align-items: flex-start;
         flex-direction: column;
 
+        .avatar {
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            cursor: pointer;
+
+             input {
+                    display: none;
+                }
+
+                span {
+                    z-index: 99;
+                    position: absolute;
+                    opacity: 0.7;
+                    transition: all 0.5s;
+                }
+
+                span:hover {
+                    opacity: 1;
+                    transform: scale(1.4);
+                }
+
+                img{
+                    margin-bottom: 1em;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+        }
+
         img {
             border-radius: 50%;
             display: block;
             margin: 1rem auto;
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
         }
 
-        input, textarea {
+        input, textarea, select {
             width: 100%;
             padding: 0.5rem;
             border: none;

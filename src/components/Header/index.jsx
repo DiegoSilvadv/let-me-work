@@ -51,15 +51,25 @@ export function Header() {
                 {name ? (
                     <small>{name}</small>
                 ) : null}
-                <button onClick={handleViewProfile}>
-                    <img src={photo ? photo : logo} className={photo ? 'userAvatar' : 'logo'} alt="logo" />
-                </button>
+
+
+                { photo ? (
+                    <button onClick={handleViewProfile}>
+                        <img src={photo} className="userAvatar" alt="Avatar" />
+                    </button>
+                ): (
+                    <Link to="/">
+                        <img src={logo} className={'logo'} alt="Logo"/>
+                    </Link>
+                )}
+                
+
+
                 {userIdLogged ?
                     <button onClick={handleLogout} className="logout">
                         <FiLogOut size={20} />
                     </button> : null}
             </div>
-
         </Container>
 
     )

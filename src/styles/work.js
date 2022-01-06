@@ -16,6 +16,17 @@ export const Container = styled.div`
         width: 90%;
     }
 
+    #unsuccessfulSearch {
+            width: 100%;
+            height: 100%;
+            margin-top: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: black;
+        }
+
 
 `
 
@@ -23,18 +34,26 @@ export const SeachContainer = styled.section`
     width: 100%;    
     display: flex;
     flex-direction: column;
+
    
     div {
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: row;
+        flex-direction: column;
 
-        input {
+        margin: 0 auto;
+        max-width: 350px;
+
+        label {
+            flex-direction: column;
+        }
+
+        select {
             width: 100%;
             padding: 0.5rem;
-            height: 40px;
+            height: 30px;
             margin: 0 0.1rem;
             border-radius: 0.2rem;
             border: none;
@@ -65,6 +84,9 @@ export const AvatarInfo = styled.section`
     margin: 1.5rem 0;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
 
+    margin: 1.5rem auto;
+    max-width: 500px;
+
     p {
         padding: 1rem;
     }
@@ -89,6 +111,7 @@ export const AvatarInfo = styled.section`
         height: 50px;
         border-radius: 50%;
         border-radius: 1px solid #5429CC;
+        object-fit: cover;
     }
 
     footer {

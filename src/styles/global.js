@@ -28,4 +28,8 @@ button {
     cursor: pointer;
 }
 
+img {
+    object-fit: cover;
+}
+
 `
