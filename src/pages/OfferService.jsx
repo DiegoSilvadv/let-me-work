@@ -1,16 +1,18 @@
 import { Container } from '../styles/offerService';
 import { useState, useEffect } from 'react';
 import firebase from '../services/firebaseConnection';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Header } from '../components/Header';
 import Footer from '../components/Footer'
 import { FiUpload } from 'react-icons/fi';
-
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 export function OfferService() {
     const history = useHistory();
     const { id } = useParams();
+
     const [displayName, setDisplayName] = useState('');
     const [occupation, setOccupation] = useState('Pedreiro');
     const [city, setCity] = useState('');
@@ -24,17 +26,17 @@ export function OfferService() {
     const [avatarUrl, setAvatarUrl] = useState(photoURL && photoURL);
 
     useEffect(() => {
-
+        getOccupations()
         if (id) {
             firebase.firestore().collection('user').doc(id)
                 .get()
                 .then(async (doc) => {
 
                     if (doc.exists) {
-                        const { displayName, occupationId, city, description, phoneNumber, dayPrice, photoURL } = doc.data();
+                        const { displayName, occupation, city, description, phoneNumber, dayPrice, photoURL } = doc.data();
 
                         setDisplayName(displayName);
-                        setOccupation(occupationId);
+                        setOccupation(occupation);
                         setCity(city);
                         setDescription(description);
                         setPhone(phoneNumber);
@@ -53,9 +55,9 @@ export function OfferService() {
         e.preventDefault();
         if (displayName === ''
             || city === '' || description === '' ||
-            phone === '' || dayPrice === ''
+            phone === '' || dayPrice === '' || occupation === 'Selecione ao menos um ramo de atividade...'
         ) {
-            alert('Preencha todas suas informações.')
+            toast.error('Preencha todas suas informações...')
         }
         else if (displayName !== '' && imageAvatarUrl !== null) {
             handlUploadImage()
@@ -70,7 +72,7 @@ export function OfferService() {
                 occupation: occupation,
                 phoneNumber: phone
             }).then(() => {
-                alert("Ok, agora você tem mais chances de ser encontrado")
+                toast.success("Ok, agora você tem mais chances de ser encontrado")
                 history.push('/works')
             })
         }
@@ -160,6 +162,7 @@ export function OfferService() {
                     />
                     <label>Ramo de atividade</label>
                     <select name="cars" id="cars" onChange={(e) => setOccupation(e.target.value)}>
+                        <option value={occupation.name}>{ occupation ? occupation : 'Selecione ao menos um ramo de atividade...' }</option>
                         {occupations.map((occupation) =>
                             (<option value={occupation.id} >{occupation.occupationName}</option>)
                         )}

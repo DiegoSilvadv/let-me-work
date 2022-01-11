@@ -1,16 +1,34 @@
 import { Container } from './styles';
-import { useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom';
+import { useEffect, useState, Redirect } from 'react'
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { MdKeyboardBackspace } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 import firebase from '../../services/firebaseConnection';
 import logo from '../../assets/logo.svg';
+import { toast } from 'react-toastify';
+import { useUser } from '../../hooks/useUser';
+
 
 export function Header() {
-    const history = useHistory();
+
     const userIdLogged = localStorage.getItem('userStorage');
     const [photo, setPhoto] = useState('');
     const [name, setName] = useState('');
+
+    const history = useHistory();
+
+    const handleLogout = () => {
+        localStorage.removeItem('userStorage');
+        toast.success("Até logo!")
+        history.push(`/`)
+    }
+
+    function handleViewProfile(){
+        if(userIdLogged)
+            history.push(`/offer-service/${userIdLogged}`)
+
+    }
 
     async function isUserLogged() {
         const user = await firebase.firestore().collection('user').doc(userIdLogged).get()
@@ -24,22 +42,13 @@ export function Header() {
             return;
         }
     }
-
-    function handleLogout() {
-        localStorage.removeItem('userStorage');
-        history.push('/')
-    }
-
-    function handleViewProfile() {
-        history.push(`/offer-service/${userIdLogged}`)
-    }
-
+    
     useEffect(() => {
-        if (userIdLogged)
+        if(userIdLogged) 
             isUserLogged();
-        else return;
-
-    })
+        
+        console.log(userIdLogged)
+    }, [userIdLogged])
 
 
     return (
@@ -54,7 +63,7 @@ export function Header() {
 
 
                 { photo ? (
-                    <button onClick={handleViewProfile}>
+                    <button onClick={() => handleViewProfile()}>
                         <img src={photo} className="userAvatar" alt="Avatar" />
                     </button>
                 ): (

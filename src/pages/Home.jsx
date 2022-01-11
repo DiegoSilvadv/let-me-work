@@ -4,13 +4,16 @@ import { Link, useHistory } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import Logo from '../assets/logo.svg';
 import firebase from '../services/firebaseConnection';
+import { toast } from 'react-toastify';
+
+
 
 export function Home() {
     const history = useHistory();
     const userIdLogged = localStorage.getItem('userStorage');
 
     async function ShowPopUpGoogle() {
-        const provider = new firebase.auth.GoogleAuthProvider();
+        const provider = new firebase.auth.GoogleAuthProvider()
         const result = await firebase.auth().signInWithPopup(provider);
 
         if (result.user) {
@@ -21,7 +24,7 @@ export function Home() {
                 .then(async (doc) => {
 
                     if (doc.exists) {
-                        alert("Bem vindo de Volta")
+                        toast.success("Bem vindo de Volta")
                         history.push(`/offer-service/${uid}`);
                         localStorage.setItem('userStorage', uid);
                     }
@@ -35,7 +38,7 @@ export function Home() {
                             city: '',
                             description: '',
                         }).then(() => {
-                            alert("Parabens por se cadastrar")
+                            toast.success("Parabens por se cadastrar")
                             localStorage.setItem('userStorage', uid);
                         })
                     }
@@ -46,8 +49,8 @@ export function Home() {
     useEffect(() => {
         if(userIdLogged){
             history.push('/works')
-        }
-    })
+        } 
+    }, [userIdLogged])
     
     function handlSingIn(e) {
         e.preventDefault();

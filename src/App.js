@@ -1,17 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+// import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes';
 import GlobalStyles from './styles/global';
+// import { UserProvider } from './hooks/useUser';
 
-function App() {
+export default function App() {
   return (
-    <>  
-      <GlobalStyles />
-      <Router>
+    <>
+      {/* <UserProvider> */}
+        <GlobalStyles />
         <Routes />
-      </Router>
+        
+      {/* </UserProvider> */}
     </>
   );
 }
 
-export default App;

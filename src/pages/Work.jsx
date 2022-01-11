@@ -6,8 +6,6 @@ import { BsWhatsapp } from 'react-icons/bs';
 import firebase from '../services/firebaseConnection'
 
 export function Work() {
-
-
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState('Todos');
     const [occupations, setOccupations] = useState([]);
@@ -26,9 +24,6 @@ export function Work() {
                         description: doc.data().description,
                         phone: doc.data().phoneNumber,
                     })
-
-                    console.log(data.phoneNumber)
-
                 })
                 setUsers(data);
             })
@@ -69,12 +64,10 @@ export function Work() {
                             description: doc.data().description,
                             phone: doc.data().phoneNumber,
                         })
-                        console.log(data)
                     })
                     setUsers(data);
                 })
 
-            console.log(users)
         }
 
 
@@ -97,7 +90,7 @@ export function Work() {
                         <div>
                             <label for="occupations">Consulte por ramo de atividade:</label>
                             <select name="occupations" id="occupations" onChange={(e) => setSearch(e.target.value)}>
-                                {occupations.map((occupation) => (<option value={occupation.id} >{occupation.occupationName}</option>))}
+                                {occupations.map((occupation) => (<option key={occupation.id} value={occupation.id} >{occupation.occupationName}</option>))}
                             </select>
                         </div>
                     </SeachContainer>
