@@ -14,7 +14,7 @@ export function OfferService() {
     const { id } = useParams();
 
     const [displayName, setDisplayName] = useState('');
-    const [occupation, setOccupation] = useState('Pedreiro');
+    const [occupation, setOccupation] = useState('');
     const [city, setCity] = useState('');
     const [description, setDescription] = useState('');
     const [phone, setPhone] = useState('');
@@ -93,6 +93,7 @@ export function OfferService() {
                 })
                 setOccupations(data);
             })
+
     }
 
     function handleChangeFile(e) {
@@ -161,11 +162,19 @@ export function OfferService() {
                         onChange={(e) => setDisplayName(e.target.value)}
                     />
                     <label>Ramo de atividade</label>
-                    <select name="cars" id="cars" onChange={(e) => setOccupation(e.target.value)}>
-                        <option value={occupation.name}>{ occupation ? occupation : 'Selecione ao menos um ramo de atividade...' }</option>
-                        {occupations.map((occupation) =>
-                            (<option value={occupation.id} >{occupation.occupationName}</option>)
-                        )}
+                    <select name="occupation" id="occupation" onChange={(e) => setOccupation(e.target.value)}>
+                        <option value={occupation.name} disabled>{ occupation ? occupation : 'Selecione ao menos um ramo de atividade...' }</option>
+                        {
+                            ( occupations.filter( occupation => occupations.occupationName !== occupation) 
+                                .map(occupationFilter => (
+                                    <option 
+                                        value={occupationFilter.id} 
+                                    > 
+                                        {occupationFilter.occupationName}
+                                    </option>
+                                    ))
+                            )
+                        }
                     </select>
                     <label>Cidade</label>
                     <input

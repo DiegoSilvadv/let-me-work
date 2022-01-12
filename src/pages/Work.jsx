@@ -90,6 +90,7 @@ export function Work() {
                         <div>
                             <label for="occupations">Consulte por ramo de atividade:</label>
                             <select name="occupations" id="occupations" onChange={(e) => setSearch(e.target.value)}>
+                            <option value="Todos" >Todos</option>
                                 {occupations.map((occupation) => (<option key={occupation.id} value={occupation.id} >{occupation.occupationName}</option>))}
                             </select>
                         </div>

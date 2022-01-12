@@ -1,16 +1,25 @@
 import { Container } from '../styles/home.js';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import Logo from '../assets/logo.svg';
 import firebase from '../services/firebaseConnection';
 import { toast } from 'react-toastify';
+import {ThemeProvider} from "styled-components";
+import { GlobalStyles } from '../styles/global'
+import { lightTheme, darkTheme } from "../components/Theme"
 
 
 
 export function Home() {
     const history = useHistory();
     const userIdLogged = localStorage.getItem('userStorage');
+    const [isLoading, setIsLoading] = useState(false);
+    const [theme, setTheme] = useState('light');
+
+    const themeToggler = () => {
+      theme === 'light' ? setTheme('dark') : setTheme('light')
+    }
 
     async function ShowPopUpGoogle() {
         const provider = new firebase.auth.GoogleAuthProvider()
@@ -52,24 +61,30 @@ export function Home() {
         } 
     }, [userIdLogged])
     
-    function handlSingIn(e) {
+    async function handlSingIn(e) {
         e.preventDefault();
-        ShowPopUpGoogle();
+        setIsLoading(true);
+    
+        await ShowPopUpGoogle();
+        setIsLoading(false);
     }
 
     return (
+        <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+            <GlobalStyles />
         <Container>
+            <button onClick={themeToggler}>Switch Theme</button>
             <section>
                 <img src={Logo} alt="Logo" />
-                <p>Sua plataforrma de serviços</p>
+                <p>Sua plataforma de serviços</p>
 
                 <button id="pay-services" onClick={handlSingIn}>
-                    <FcGoogle size={30} />Oferecer Seviço
+                    <FcGoogle size={30} />{ isLoading ? 'Carregando...': 'Oferecer Seviço'  }
                 </button>
-                <button>
-                    <Link to="/works">Contratar serviço</Link>
-                </button>
+                <Link to="/works" id="check-works">Contratar serviço</Link>
+                
             </section>
         </Container>
+        </ThemeProvider>
     )
 }

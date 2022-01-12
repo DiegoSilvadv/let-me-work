@@ -48,15 +48,18 @@ export const SeachContainer = styled.section`
 
         label {
             flex-direction: column;
-        }
+            padding: 1rem 0;
+         }
 
         select {
             width: 100%;
             padding: 0.5rem;
-            height: 30px;
+            height: 40px;
             margin: 0 0.1rem;
             border-radius: 0.2rem;
             border: none;
+            background-color: white;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
         }
 
         button {
@@ -101,7 +104,13 @@ export const AvatarInfo = styled.section`
         text-align: center;
 
         strong {
-            margin: 0.3rem 0
+            margin: 0.3rem 0;
+            color: #5429CC;
+            font-weight: bold;
+        }
+
+        small {
+            padding: 0.2rem
         }
 
     }
@@ -136,9 +145,15 @@ export const AvatarInfo = styled.section`
             border: none;
             padding: 0.5rem;
             border-radius: 0.5rem;
+            font-weight: bold;
+            transition: background-color 500ms;
 
             svg {
                 margin: 0 0.3rem;
+            }
+
+            &:hover {
+                background-color: #5429CC;
             }
         }
 

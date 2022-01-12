@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "letmework-8ef42"
-  }
+    "letmework": "letmework-b6d46",
+    "default": "letmework-b6d46"
+  },
+  "targets": {}
 }

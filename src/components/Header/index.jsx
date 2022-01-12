@@ -24,8 +24,8 @@ export function Header() {
         history.push(`/`)
     }
 
-    function handleViewProfile(){
-        if(userIdLogged)
+    function handleViewProfile() {
+        if (userIdLogged)
             history.push(`/offer-service/${userIdLogged}`)
 
     }
@@ -42,37 +42,39 @@ export function Header() {
             return;
         }
     }
-    
+
     useEffect(() => {
-        if(userIdLogged) 
+        if (userIdLogged)
             isUserLogged();
-        
+
         console.log(userIdLogged)
     }, [userIdLogged])
 
 
     return (
         <Container>
-            <Link to='/'>
-                <MdKeyboardBackspace size={25} color="#fff" />
-            </Link>
+
+            {userIdLogged ? null : (
+                <Link to='/'>
+                    <MdKeyboardBackspace size={25} color="#fff" />
+                </Link>
+            )}
+
             <div>
                 {name ? (
                     <small>{name}</small>
                 ) : null}
 
 
-                { photo ? (
+                {photo ? (
                     <button onClick={() => handleViewProfile()}>
                         <img src={photo} className="userAvatar" alt="Avatar" />
                     </button>
-                ): (
+                ) : (
                     <Link to="/">
-                        <img src={logo} className={'logo'} alt="Logo"/>
+                        <img src={logo} className={'logo'} alt="Logo" />
                     </Link>
                 )}
-                
-
 
                 {userIdLogged ?
                     <button onClick={handleLogout} className="logout">
