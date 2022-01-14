@@ -10,9 +10,10 @@ export default createGlobalStyle`
 }
 
 body {
-    background: ${({ theme }) => theme.body};
-    color: ${({ theme }) => theme.text};
+    background: #FFF;
+    color: #FFFF;
     -webkit-font-smoothing: antialiased;
+    transition: all 0.50s linear;
 }
 
 body, input, button {

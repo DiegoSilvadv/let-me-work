@@ -5,9 +5,8 @@ import { FcGoogle } from 'react-icons/fc';
 import Logo from '../assets/logo.svg';
 import firebase from '../services/firebaseConnection';
 import { toast } from 'react-toastify';
-import {ThemeProvider} from "styled-components";
-import { GlobalStyles } from '../styles/global'
-import { lightTheme, darkTheme } from "../components/Theme"
+import Toggle from "react-toggle";
+import "react-toggle/style.css"
 
 
 
@@ -16,9 +15,11 @@ export function Home() {
     const userIdLogged = localStorage.getItem('userStorage');
     const [isLoading, setIsLoading] = useState(false);
     const [theme, setTheme] = useState('light');
+    const [isDark, setIsDark] = useState(true);
 
-    const themeToggler = () => {
-      theme === 'light' ? setTheme('dark') : setTheme('light')
+    const themeToggler = (e) => {
+        setIsDark(e.checked)
+        theme === 'light' ? setTheme('dark') : setTheme('light')
     }
 
     async function ShowPopUpGoogle() {
@@ -59,7 +60,13 @@ export function Home() {
         if(userIdLogged){
             history.push('/works')
         } 
-    }, [userIdLogged])
+
+        if (isDark) {
+            document.body.classList.add('dark');
+          } else {
+            document.body.classList.remove('dark');
+          }
+    }, [userIdLogged, isDark]);
     
     async function handlSingIn(e) {
         e.preventDefault();
@@ -70,11 +77,16 @@ export function Home() {
     }
 
     return (
-        <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-            <GlobalStyles />
+            
         <Container>
-            <button onClick={themeToggler}>Switch Theme</button>
             <section>
+                <Toggle
+                    className="dark-mode-toggle"
+                    checked={isDark}
+                    onChange={(e) => themeToggler(e.target)}
+                    icons={{ checked: "🌙", unchecked: "🔆" }}
+                    aria-label="Dark mode toggle"
+                />
                 <img src={Logo} alt="Logo" />
                 <p>Sua plataforma de serviços</p>
 
@@ -85,6 +97,5 @@ export function Home() {
                 
             </section>
         </Container>
-        </ThemeProvider>
     )
 }

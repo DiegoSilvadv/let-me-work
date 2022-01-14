@@ -99,7 +99,7 @@ export function Work() {
                     {users.length <= 0 ? <p id="unsuccessfulSearch">😒Sem dados para mostrar...😒</p> : (
                         users.map((user) => {
                             return (
-                                <AvatarInfo key={user.uid}>
+                                <AvatarInfo key={user.uid} className="dark">
                                     <header>
                                         <img src={user.photoURL} alt="avatar" />
                                         <strong>{user.displayName}</strong>
